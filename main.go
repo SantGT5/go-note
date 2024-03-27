@@ -5,12 +5,9 @@ import (
 	"github.com/SantGT5/gopportunities/router"
 )
 
-var (
-	logger *config.Logger
-)
-
 func main() {
-	logger = config.GetLogger("main")
+	logger := config.GetLogger("main")
+
 	// init Configs
 	err := config.Init()
 
