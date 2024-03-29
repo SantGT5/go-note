@@ -7,6 +7,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @BasePath /api/v1
+// @Summary Get opening
+// @Description Get a opening
+// @Tags Opening
+// @Accept json
+// @Produce json
+// @Param id query string true "Opening id"
+// @Success 200 {object} GetOpeningResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Router /opening [get]
 func GetOpeningHandler(ctx *gin.Context) {
 	id := ctx.Query("id")
 

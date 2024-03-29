@@ -33,6 +33,22 @@ definitions:
       message:
         type: string
     type: object
+  handler.GetOpeningResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.OpeningResponse'
+      message:
+        type: string
+    type: object
+  handler.GetOpeningsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/schemas.OpeningResponse'
+        type: array
+      message:
+        type: string
+    type: object
   schemas.OpeningResponse:
     properties:
       company:
@@ -92,6 +108,34 @@ paths:
       summary: Delete opening
       tags:
       - Opening
+    get:
+      consumes:
+      - application/json
+      description: Get a opening
+      parameters:
+      - description: Opening id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.GetOpeningResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Get opening
+      tags:
+      - Opening
     post:
       consumes:
       - application/json
@@ -119,6 +163,25 @@ paths:
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
       summary: Create opening
+      tags:
+      - Opening
+  /openings:
+    get:
+      consumes:
+      - application/json
+      description: Get all openings
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.GetOpeningsResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Get openings
       tags:
       - Opening
 swagger: "2.0"
