@@ -3,7 +3,6 @@ package router
 import (
 	"github.com/SantGT5/gopportunities/docs"
 	"github.com/SantGT5/gopportunities/handler"
-
 	"github.com/gin-gonic/gin"
 
 	swaggerfiles "github.com/swaggo/files"
