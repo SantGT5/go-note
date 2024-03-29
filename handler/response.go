@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/SantGT5/gopportunities/schemas"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,10 +18,28 @@ func sendError(ctx *gin.Context, code int, msg string) {
 }
 
 func sendSuccess(ctx *gin.Context, op string, data interface{}) {
-	ctx.Header("Content-type", "application/json")
 
-	ctx.JSON(http.StatusOK, gin.H{
+	body := gin.H{
 		"message": fmt.Sprintf("operation from handler: %s successful", op),
-		"data":    data,
-	})
+	}
+
+	if data != nil {
+		body["data"] = data
+	}
+
+	ctx.Header("Content-type", "application/json")
+	ctx.JSON(http.StatusOK, body)
+}
+
+type ErrorResponse struct {
+	Message   string `json:"message"`
+	ErrorCode string `json:"errorCode"`
+}
+type CreateOpeningResponse struct {
+	Message string                  `json:"message"`
+	Data    schemas.OpeningResponse `json:"data"`
+}
+
+type DeleteOpeningResponse struct {
+	Message string `json:"message"`
 }
