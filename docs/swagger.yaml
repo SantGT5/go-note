@@ -49,6 +49,28 @@ definitions:
       message:
         type: string
     type: object
+  handler.UpdateOpeningResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.OpeningResponse'
+      message:
+        type: string
+    type: object
+  handler.UpdatingOpeningRequest:
+    properties:
+      company:
+        type: string
+      link:
+        type: string
+      location:
+        type: string
+      remote:
+        type: boolean
+      role:
+        type: string
+      salary:
+        type: integer
+    type: object
   schemas.OpeningResponse:
     properties:
       company:
@@ -163,6 +185,44 @@ paths:
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
       summary: Create opening
+      tags:
+      - Opening
+    put:
+      consumes:
+      - application/json
+      description: Update a opening
+      parameters:
+      - description: Opening id
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: Opening id
+        in: body
+        name: opening
+        required: true
+        schema:
+          $ref: '#/definitions/handler.UpdatingOpeningRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.UpdateOpeningResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Update opening
       tags:
       - Opening
   /openings:
