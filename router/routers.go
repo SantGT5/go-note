@@ -1,15 +1,23 @@
 package router
 
 import (
+	"github.com/SantGT5/gopportunities/docs"
 	"github.com/SantGT5/gopportunities/handler"
+
 	"github.com/gin-gonic/gin"
+
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
+
+var basePath = "/api/v1"
 
 func initializeRoutes(router *gin.Engine) {
 	// init handler
 	handler.InitializeHandler()
+	docs.SwaggerInfo.BasePath = basePath
 
-	var v1 *gin.RouterGroup = router.Group("/api/v1/")
+	v1 := router.Group(basePath)
 
 	{
 		v1.GET("/opening", handler.GetOpeningHandler)
@@ -18,4 +26,7 @@ func initializeRoutes(router *gin.Engine) {
 		v1.PUT("/opening", handler.PutOpeningHandler)
 		v1.GET("/openings", handler.GetOpeningsHandler)
 	}
+
+	// init swagger
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 }

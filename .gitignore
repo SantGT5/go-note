@@ -12,3 +12,7 @@
 
 # DB folder
 db/
+
+
+# vscode
+.vscode
